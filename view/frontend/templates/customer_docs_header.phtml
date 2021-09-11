@@ -1,0 +1,42 @@
+<?php
+/*
+ * Copyright © Ghost Unicorns snc. All rights reserved.
+ * See LICENSE for license details.
+ */
+
+use GhostUnicorns\DocsCustomer\ViewModel\DocsCustomer;
+
+/** @var DocsCustomer $viewModel */
+$viewModel = $block->getViewModel();
+?>
+
+<?php if ($viewModel->showFrontendSection() && $viewModel->showUploadButton()): ?>
+    <div class="block block-order-details-view">
+        <div class="block-title">
+            <strong><?= $block->escapeHtml('Document Upload') ?></strong>
+        </div>
+        <form class="upload-form"
+              name="UploadFrom"
+              action="<?= $this->getUrl('docscustomer/documents/add') ?>"
+              method="post"
+              enctype='multipart/form-data'
+              autocomplete="off">
+            <input type="file"
+                   name="upload_file"/>
+            <button type="submit"
+                    class="action submit primary "
+                    title="<?= $block->escapeHtml('Upload document') ?>">
+              <span>
+                <?= $block->escapeHtml('Upload document') ?>
+              </span>
+            </button>
+        </form>
+    </div>
+<?php endif; ?>
+<?php if ($viewModel->showFrontendSection()): ?>
+    <div class="block block-order-details-view">
+        <div class="block-title">
+            <strong><?= $block->escapeHtml('Documents list') ?></strong>
+        </div>
+    </div>
+<?php endif; ?>

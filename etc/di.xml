@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © Ghost Unicorns snc. All rights reserved.
+  ~ See LICENSE for license details.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Commands start -->
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="customer_assign_doc" xsi:type="object">
+                    GhostUnicorns\DocsCustomer\Console\Command\AssignNewDocToCustomer
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="GhostUnicorns\DocsCustomer\Console\Command\AssignNewDocToCustomer">
+        <arguments>
+            <argument name="customerRepository" xsi:type="object">Magento\Customer\Api\CustomerRepositoryInterface\Proxy</argument>
+            <argument name="docsManager" xsi:type="object">GhostUnicorns\Docs\Model\DocsManager\Proxy</argument>
+            <argument name="areaCode" xsi:type="object">GhostUnicorns\Docs\Model\SetAreaCode\Proxy</argument>
+        </arguments>
+    </type>
+    <!-- Commands end -->
+
+    <virtualType name="GhostUnicorns\Docs\Model\SetDocWithTmpFile\Virtual"
+        type="GhostUnicorns\Docs\Model\SetDocWithTmpFile">
+        <arguments>
+            <argument name="config" xsi:type="object">GhostUnicorns\DocsCustomer\Model\Config</argument>
+        </arguments>
+    </virtualType>
+    <type name="GhostUnicorns\DocsCustomer\Controller\Documents\Add">
+        <arguments>
+            <argument name="setDocWithTmpFile" xsi:type="object">GhostUnicorns\Docs\Model\SetDocWithTmpFile\Virtual</argument>
+        </arguments>
+    </type>
+</config>
