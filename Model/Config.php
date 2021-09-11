@@ -35,6 +35,11 @@ class Config implements ConfigInterface
     const DOCS_CUSTOMER_DOCS_UPLOAD_ALLOWED_EXTENSION = 'docs/customer_docs/upload_extension';
 
     /**
+     * @var string
+     */
+    const SEPARATOR = ',';
+
+    /**
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
@@ -84,11 +89,12 @@ class Config implements ConfigInterface
     /**
      * @inheirtDoc
      */
-    public function getAllowedExtension(): string
+    public function getAllowedExtension(): array
     {
-        return $this->scopeConfig->getValue(
+        $value = $this->scopeConfig->getValue(
             self::DOCS_CUSTOMER_DOCS_UPLOAD_ALLOWED_EXTENSION,
             ScopeInterface::SCOPE_STORE
         );
+        return explode(self::SEPARATOR, $value);
     }
 }
